@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Test extends MY_Controller {
+class Test extends CI_Controller {
 
     public function index()
     {
-        $this->render("test_v", "html");
+        $this->load->view("test_v", "html");
     }
 
 }

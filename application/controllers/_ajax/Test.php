@@ -1,55 +1,55 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Test extends MY_Controller {
+class Test extends CI_Controller {
 
     public function method_get()
     {
-        $this->data['status'] = FALSE;
+        $data['status'] = FALSE;
 
         if( ! $this->input->get("name") ) {
-            $this->data['field'] = "name";
-            $this->data['message'] = "NAME REQUIRED";
+            $data['field'] = "name";
+            $data['message'] = "NAME REQUIRED";
         } else {
-            $this->data['status'] = TRUE;
-            $this->data['message'] = $this->input->get("name");
+            $data['status'] = TRUE;
+            $data['message'] = $this->input->get("name");
         }
 
-        $this->render(NULL, "json");
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
     public function method_post()
     {
-        $this->data['status'] = FALSE;
+        $data['status'] = FALSE;
 
         if( ! $this->input->post("name") ) {
-            $this->data['field'] = "name";
-            $this->data['message'] = "NAME REQUIRED";
+            $data['field'] = "name";
+            $data['message'] = "NAME REQUIRED";
         } else {
-            $this->data['status'] = TRUE;
-            $this->data['message'] = "HELLO, " . $this->input->post("name");
+            $data['status'] = TRUE;
+            $data['message'] = "HELLO, " . $this->input->post("name");
         }
 
-        $this->render(NULL, "json");
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
     public function method_post_multipart()
     {
-        $this->data['status'] = FALSE;
+        $data['status'] = FALSE;
 
         if( ! $this->input->post("name") ) {
-            $this->data['field'] = "name";
-            $this->data['message'] = "NAME REQUIRED";
+            $data['field'] = "name";
+            $data['message'] = "NAME REQUIRED";
         } else if( ! isset($_FILES['file']) ) {
-            $this->data['message'] = "FILE(IMAGE) REQUIRED";
+            $data['message'] = "FILE(IMAGE) REQUIRED";
         } else {
             // $_FILES PROCESS
 
-            $this->data['status'] = TRUE;
-            $this->data['message'] = "HELLO, " . $this->input->post("name") . ", " . $_FILES['file']['name'];
+            $data['status'] = TRUE;
+            $data['message'] = "HELLO, " . $this->input->post("name") . ", " . $_FILES['file']['name'];
         }
 
-        $this->render(NULL, "json");
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
 }

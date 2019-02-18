@@ -108,18 +108,14 @@
         // set csrf
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             if (!options.processData && !options.contentType) {
-                options.data.append('csrf_token', $('meta[name=csrf_token]').attr('content'))
+                options.data.append('csrf_token', getCookie('csrf_cookie'))
             } else if (options.type.toLowerCase() === 'post') {
-                options.data = $.param($.extend({}, originalOptions.data, { csrf_token: $('meta[name=csrf_token]').attr('content') }))
+                options.data = $.param($.extend({}, originalOptions.data, { csrf_token: getCookie('csrf_cookie') }))
             }
         })
 
-        // set new csrf && common error
-        $(document).on('ajaxSuccess', function (event, request, settings) {
-            if (settings.type.toLowerCase() === 'post' && typeof request.responseJSON.csrf_token !== 'undefined') {
-                $('meta[name=csrf_token]').attr('content', request.responseJSON.csrf_token)
-            }
-        }).on('ajaxError', function (jqXHR, textStatus, errorThrown) {
+        // set ajax error
+        $(document).on('ajaxError', function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR)
             console.log(textStatus)
             console.log(errorThrown)
@@ -195,6 +191,23 @@
                 }
             }
         })
+    }
+
+    // helper get_cookie
+    function getCookie(cname) {
+        var name = cname + '='
+        var decodedCookie = decodeURIComponent(document.cookie)
+        var ca = decodedCookie.split(';')
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i]
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1)
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length)
+            }
+        }
+        return ''
     }
     </script>
 </body>
