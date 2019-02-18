@@ -110,7 +110,9 @@
             if (!options.processData && !options.contentType) {
                 options.data.append('csrf_token', getCookie('csrf_cookie'))
             } else if (options.type.toLowerCase() === 'post') {
-                options.data = $.param($.extend({}, originalOptions.data, { csrf_token: getCookie('csrf_cookie') }))
+                options.data = $.param($.extend({}, originalOptions.data, {
+                    csrf_token: getCookie('csrf_cookie')
+                }))
             }
         })
 
