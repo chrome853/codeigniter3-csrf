@@ -195,7 +195,7 @@
         })
     }
 
-    // helper get_cookie
+    // helper getCookie
     function getCookie(cname) {
         var name = cname + '='
         var decodedCookie = decodeURIComponent(document.cookie)
