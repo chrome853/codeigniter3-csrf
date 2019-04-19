@@ -5,7 +5,7 @@ class Test extends CI_Controller {
 
     public function index()
     {
-        $this->load->view("test_v", "html");
+        $this->load->view("test_v");
     }
 
 }
